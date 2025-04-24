@@ -43,6 +43,10 @@ void MainGame::processInput()
 	}
 }
 
+void MainGame::initShaders() {
+	program.compileShaders("Shaders/colorShaderVert.txt", "Shaders/colorShaderFrag.txt");
+}
+
 void MainGame::run()
 {
 	width = 800;
