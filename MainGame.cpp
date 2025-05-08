@@ -21,6 +21,7 @@ void MainGame::init()
 
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
+	initShaders();
 }
 
 void MainGame::processInput()
@@ -45,6 +46,10 @@ void MainGame::processInput()
 
 void MainGame::initShaders() {
 	program.compileShaders("Shaders/colorShaderVert.txt", "Shaders/colorShaderFrag.txt");
+	program.addAtribute("vertexPosition");
+	program.addAtribute("vertexColor");
+	program.addAtribute("vertexUV");
+	program.linkShader();
 }
 
 void MainGame::run()
@@ -55,7 +60,7 @@ void MainGame::run()
 	gameState = GameState::PLAY;
 
 	init();
-	sprite.init(-1, -1, 1, 1);
+	sprite.init(-1, -1, 1, 1, "images/image.png");
 	update();
 }
 
@@ -69,6 +74,7 @@ void MainGame::update()
 
 void MainGame::draw()
 {
+	time += 0.0002;
 	glClearDepth(1.0);
 
 	//GL_COLOR_BUFFER_BIT = 0x00004000; A
@@ -76,7 +82,14 @@ void MainGame::draw()
 	//GL_DEPTH_BUFFER_BIT = 0x00004100; A+B => GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	program.use();
+	glActiveTexture(GL_TEXTURE0);
+	GLuint timeLocataion = program.getUniformLocation("time");
+	glUniform1f(timeLocataion, time);
+	GLuint textureLocation = program.getUniformLocation("myImage");
+	glUniform1f(textureLocation, 0);
 	sprite.draw();
+	program.unuse();
 	SDL_GL_SwapWindow(window);
 
 }

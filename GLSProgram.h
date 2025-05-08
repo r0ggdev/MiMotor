@@ -23,6 +23,7 @@ public:
 	void compileShaders(const string& vertexShaderFilePath,
 		const string& fragmentShaderFilePath);
 
+	GLuint getUniformLocation(const string& name);
 	void linkShader();
 
 };
