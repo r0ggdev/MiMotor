@@ -129,3 +129,13 @@ void GLSProgram::unuse() {
 		glDisableVertexAttribArray(i);
 	}
 }
+
+GLuint GLSProgram::getUniformLocation(const string& name)
+{
+	GLuint location = glGetUniformLocation(programID,
+		name.c_str());
+	if (location == GL_INVALID_INDEX) {
+		fatalError("Uniform " + name + " not found in shader");
+	}
+	return location;
+}

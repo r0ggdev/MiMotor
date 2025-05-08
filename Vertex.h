@@ -13,9 +13,20 @@ struct Color {
 	GLuint a;
 };
 
+struct UV {
+	float U;
+	float V;
+};
+
 struct Vertex {
 	Position position;
 	Color color;
+	UV uv;
+
+	void setUV(float u, float v) {
+		uv.U = u;
+		uv.V = v;
+	}
 
 	void setPosition(float x, float y) {
 		position.x = x;
