@@ -1,5 +1,6 @@
-/x64
-/MiMotor
+/x64/Debug/MiMotor.exe
+/x64/Debug/MiMotor.pdb
+/MiMotor/
 .vs/
 
 
