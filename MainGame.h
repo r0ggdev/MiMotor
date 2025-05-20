@@ -4,6 +4,9 @@
 #include <iostream>
 #include "Sprite.h"
 #include "GLSProgram.h"
+#include "InputManager.h"
+#include "Camera2D.h"
+#include <vector>
 
 using namespace std;
 
@@ -19,7 +22,10 @@ private:
 	int width;
 	int height;
 	float time = 0;
+	InputManager inputManager;
+	Camera2D camera2D;
 	Sprite sprite;
+	vector<Sprite*> sprites;
 	GLSProgram program;
 	SDL_Window* window;
 	void init();

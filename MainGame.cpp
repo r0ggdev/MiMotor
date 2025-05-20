@@ -35,9 +35,19 @@ void MainGame::processInput()
 			break;
 		
 		case SDL_EVENT_MOUSE_MOTION:
-			cout << "posicion x " << event.motion.x << " posicion y " << event.motion.y << endl;
+			inputManager.setMouseCoords(event.motion.x, event.motion.y);
+
+			//cout << "posicion x " << event.motion.x << " posicion y " << event.motion.y << endl;
 			break;
 
+		case SDL_EVENT_KEY_DOWN:
+			inputManager.pressKey(event.key.key);
+
+			break;
+
+		case SDL_EVENT_KEY_UP:
+			inputManager.releaseKey(event.key.key);
+			break;
 		default:
 			break;
 		}
@@ -60,7 +70,12 @@ void MainGame::run()
 	gameState = GameState::PLAY;
 
 	init();
-	sprite.init(-1, -1, 1, 1, "images/image.png");
+	sprites.push_back(new Sprite());
+	sprites.back()->init(-1, -1, 1, 1, "images/image.png");
+	sprites.push_back(new Sprite());
+	sprites.back()->init(0, -1, 1, 1, "images/image.png");
+
+	//sprite.init(-1, -1, 1, 1, "images/image.png");
 	update();
 }
 
@@ -88,7 +103,12 @@ void MainGame::draw()
 	glUniform1f(timeLocataion, time);
 	GLuint textureLocation = program.getUniformLocation("myImage");
 	glUniform1f(textureLocation, 0);
-	sprite.draw();
+
+	for (size_t i = 0; i < sprites.size(); i++) {
+		sprites[i]->draw();
+	}
+
+	//sprite.draw();
 	program.unuse();
 	SDL_GL_SwapWindow(window);
 

@@ -1,6 +1,7 @@
 #include "Sprite.h"
 #include "Vertex.h"
-#include "ImageLoader.h"
+//#include "ImageLoader.h"
+#include "ResourceManager.h"
 #include <cstddef>
 
 Sprite::Sprite()
@@ -22,8 +23,9 @@ void Sprite::init(float x, float y, int width, int height, string texturePath)
 	if (vboID == 0) {
 		glGenBuffers(1, &vboID);
 	}
-	texture = ImageLoader::loadPNG(texturePath);
+	//texture = ImageLoader::loadPNG(texturePath);
 
+	texture = ResourceManager::getTexture(texturePath);
 
 	/*
 	float vertexData[12];
