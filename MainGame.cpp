@@ -64,16 +64,41 @@ void MainGame::initShaders() {
 
 void MainGame::run()
 {
+	/* 
+	
+	Para agregar imagenes en diferentes posiciones
+	se va trabajar con sprites.push_back para setear el sprite
+	y se trabajara con sprites.back()-> init( x, y, w, h, img)
+	los valores x, y varian entre -1, 0 para la posicion. Ejm.
+
+			   x   x
+		      -1   0
+			  _______
+		y  0 | a | b |        ( -1,  0 )  ( 0, 0 )
+		     |___|___|   ==>
+		y -1 | c | d |		  ( -1, -1 )  ( 0, -1)
+		     |___|___|
+	*/
+	
 	width = 800;
 	height = 600;
 
 	gameState = GameState::PLAY;
 
 	init();
+	
 	sprites.push_back(new Sprite());
 	sprites.back()->init(-1, -1, 1, 1, "images/image.png");
+
+
 	sprites.push_back(new Sprite());
 	sprites.back()->init(0, -1, 1, 1, "images/image.png");
+
+	sprites.push_back(new Sprite());
+	sprites.back()->init(0, 0, 1, 1, "images/image.png");
+
+	sprites.push_back(new Sprite());
+	sprites.back()->init(-1, 0, 1, 1, "images/image.png");
 
 	//sprite.init(-1, -1, 1, 1, "images/image.png");
 	update();
